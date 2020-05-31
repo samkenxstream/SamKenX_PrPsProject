@@ -1,88 +1,4 @@
-{#{% extends "account/base.html" %}#}
-{##}
-{#{% load i18n %}#}
-{#{% load account socialaccount %}#}
-{##}
-{#{% block head_title %}{% trans "Sign In" %}{% endblock %}#}
-{##}
-{#{% block content %}#}
-{##}
-{#<div class="container">#}
-{#<div class="px-3 py-3 pt-md-1 pb-md-0 mx-auto text-center text-dark">#}
-{##}
-{##}
-{#    #}
-{##}
-{#<h1>{% trans "Sign In" %}</h1>#}
-{##}
-{#{% get_providers as socialaccount_providers %}#}
-{##}
-{#{% if socialaccount_providers %}#}
-{#<p>{% blocktrans with site.name as site_name %}Please sign in with one#}
-{#of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>#}
-{#for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>#}
-{##}
-{#<div class="socialaccount_ballot">#}
-{##}
-{#  <ul class="socialaccount_providers">#}
-{#    {% include "socialaccount/snippets/provider_list.html" with process="login" %}#}
-{#  </ul>#}
-{##}
-{#  <div class="login-or">{% trans 'or' %}</div>#}
-{##}
-{#</div>#}
-{##}
-{#{% include "socialaccount/snippets/login_extra.html" %}#}
-{##}
-{#{% else %}#}
-{#<p>{% blocktrans %}If you have not created an account yet, then please#}
-{#<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>#}
-{#{% endif %}#}
-{##}
-{#<form class="login" method="POST" action="{% url 'account_login' %}">#}
-{#  {% csrf_token %}#}
-{#  {{ form.as_p }}#}
-{#  {% if redirect_field_value %}#}
-{#  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />#}
-{#  {% endif %}#}
-{#  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
-{#  <button class="primaryAction btn btn-lg btn-outline-warning text-dark" type="submit">{% trans "Sign In" %}</button>#}
-{#</form>#}
-{##}
-{##}
-{#{% endblock %}#}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{#{% extends "account/base.html" %}#}
-
-
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<script src="https://use.fontawesome.com/19011fc75e.js"></script>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -100,12 +16,11 @@
                        RentCheck
                     </a>
                 </li>
-                <li>
-                    <a href="/RentCheck/main_page_rooms">Premises</a>
-                </li>
-                <li>
-                    <a href="/RentCheck/main_page_tenants">Tenants</a>
-                </li>
+                {% if form %}
+{#                <li>#}
+{#                    <a href="/RentCheck/main_page_tenants">Tenants</a>#}
+{#                </li>#}
+                {% endif %}
                 <li>
                     <a href="/RentCheck/my_account">My account</a>
                 </li>
@@ -136,146 +51,74 @@
                     <div class="col-lg-8 col-lg-offset-2">
 
 
-
-
-
-
-{# <div class="span8 offset">#}
-{#        <div class="row-fluid">#}
-{#            <div class="span10 offset">#}
-{#                <div class="panel panel-warning ">#}
-{#                    <div class="panel-heading">#}
-{#                        <h3 class="panel-title">User information</h3>#}
-{#                    </div>#}
-{#                    <div class="panel-body">#}
-{#                        <div class="row-fluid">#}
-{#                            <div class="span3">#}
-{#                            </div>#}
-{#                            <div class="span6">#}
-{#                                {% if user %}#}
-{#                                <strong>{{ user }}</strong><br>#}
-{#                                {% endif %}#}
-{#                                <table class="table table-condensed table-responsive table-user-information">#}
-{#                                    <tbody>#}
-{#                                    <tr>#}
-{#                                        <td>Status</td>#}
-{#                                        {% if user.is_active %}#}
-{#                                        <td>Online</td>#}
-{#                                            {% else %}#}
-{#                                            <td>Offline</td>#}
-{#                                        {% endif %}#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>First name:</td>#}
-{#                                        <td>{{ user.first_name }}</td>#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>Last name:</td>#}
-{#                                        <td>{{ user.last_name }}</td>#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>Administrator</td>#}
-{#                                        {% if user.is_staff%}#}
-{#                                        <td>Yes</td>#}
-{#                                            {% else %}#}
-{#                                            <td>No</td>#}
-{#                                        {% endif %}#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>Group:</td>#}
-{#                                        <td>{{ user.group }}</td>#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>Registered since:</td>#}
-{#                                        <td>{{ user.date_joined }}</td>#}
-{#                                    </tr>#}
-{#                                    <tr>#}
-{#                                        <td>Added rooms</td>#}
-{#                                        <td></td>#}
-{#                                    </tr>#}
-{#                                    </tbody>#}
-{#                                </table>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-
-
-
-                     <div class="span8 offset">
-        <div class="row-fluid">
-            <div class="span10 offset">
-                <div class="panel panel-warning ">
-
-                    <div class="panel-body">
-                        <div class="row-fluid">
-                            <div class="span3">
-                            </div>
-                            <div class="span6">
-
-                                <table class="table table-condensed table-responsive table-user-information">
-<tbody>
-{% load i18n %}
-{% load account socialaccount %}
-
 {% block content %}
+    <div class="container">
+        <div class="form">
+                <h3>Добавить помещение</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <li>{{ form.country }}</li>
+                    <li>{{ form.city }}</li>
+                    <li>{{ form.street }}</li>
+                    <li>{{ form.house_number }}</li>
+                    <li>{{ form.room_area }}</li>
+                    <li>{{ form.basement_area }}</li>
+                    <li>{{ form.basement_ratio }}</li>
+                    <li>{{ form.KT }}</li>
 
-<h1>{% trans "Sign In" %}</h1>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-lg btn-outline-warning text-dark" type="submit">{% trans "Sign In" %}</button>
-</form>
-
-
-{% endblock %}
-</tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <input type="submit" name="send" value="Добавить" class="mt-2 btn btn-warning">
+                </form>
         </div>
-                     </div>
+    </div>
 
 
+<h2>Помещения</h2>
+{% if all_info %}
+    <table>
+    <tr>
+        <th>Country</th>
 
+        <th>City</th>
 
+        <th>Street</th>
 
+        <th>House number</th>
 
+        <th>Rooms area</th>
 
+        <th>Basement area</th>
+
+        <th>Basement ratio</th>
+
+        <th>KT</th>
+
+        <th>Rent</th>
+
+        <th>Tenant's email</th>
+    </tr>
+    {% for room in all_info %}
+    <tr>
+            <td>{{ room.country}}</td>
+            <td>{{ room.city}}</td>
+            <td>{{ room.street}}</td>
+            <td>{{ room.house_number}}</td>
+
+            <td>{{ room.room_area}}</td>
+            <td>{{ room.basement_area}}</td>
+            <td>{{ room.basement_ratio}}</td>
+            <td>{{ room.KT}}</td>
+
+            <td>{{ room.rent }}</td>
+
+            <td>{{ room.tenant_email }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% else %}
+            Таблица пуста
+    {% endif %}
+{% endblock %}
 
                     </div>
                 </div>
@@ -299,7 +142,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
     function hamburger_cross() {
 
-      if (isClosed == true) {
+      if (isClosed === true) {
         overlay.hide();
         trigger.removeClass('is-open');
         trigger.addClass('is-closed');
@@ -320,9 +163,36 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
 <style>
     li{
+        padding-bottom: 1px;
+        padding-top: 2px;
         list-style-type: none;
     }
 
+    .form {
+        width: 63%;
+    }
+
+    table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+    body {
+    position: relative;
+    overflow-x: hidden;
+}
 body,
 html { height: 100%;}
 .nav .open > a,
@@ -612,5 +482,3 @@ html { height: 100%;}
     z-index: 1;
 }
 </style>
-
-
