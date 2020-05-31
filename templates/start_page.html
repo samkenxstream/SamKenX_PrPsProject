@@ -1,13 +1,26 @@
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <script src="https://use.fontawesome.com/19011fc75e.js"></script>
+    <script src="https://kit.fontawesome.com/45d6867835.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <style type="text/css">
+      .center
+      {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      .social {
+          margin: 5px 10px 5px 0;
+      }
+    </style>
   </head>
 
   <body>
+
       <div class="Hello-header px-3 py-3 pt-md-1 pb-md-0 mx-auto text-right text-dark">
         <strong class="display-4" >RentCheck</strong>
       </div>
@@ -19,31 +32,39 @@
         <p class="lead">Good to see you here</p>
     </div>
 
-    <form action="/RentCheck">
-        <div class="text-center pb-md-5">
-            <button class="btn btn-lg btn-outline-warning text-dark">Let's start</button>
-        </div>
-    </form>
+      {% if user.is_authenticated %}
+                 <form action="/RentCheck/main_page_rooms">
+                        <div class="text-center pb-md-5">
+                            <button class="btn btn-lg btn-outline-warning text-dark">Let's start</button>
+                        </div>
+                 </form>
+                 {% else %}
+                <form action="{% url 'account_login' %}">
+                        <div class="text-center pb-md-5">
+                            <button class="btn btn-lg btn-outline-warning text-dark">Sing in</button>
+                        </div>
+                 </form>
+      {% endif %}
 
     <div class="Contact-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <p class="lead">Contact with us in email or social networks</p>
-        <section class="text-center">
-            <form action="mailto:Egor.Shilkin2000@yandex.ru">
-                <button class="btn"><i class="fas fa-envelope-square"></i></button>
-            </form>
-        <form action="https://www.instagram.com/_egors2000_/">
-        <i class="fab fa-instagram"></i>
+        <div class="center">
+        <form class="social" action="mailto:Egor.Shilkin2000@yandex.ru">
+            <button class="btn btn-default btn-warning"><i class="fas fa-envelope-square fa-3x"></i></button>
         </form>
-        <form action="https://www.facebook.com/EgorS2000/">
-            <i class="fab fa-facebook"></i>
+        <form class="social" action="https://www.instagram.com/_egors2000_/">
+            <button class="btn btn-default btn-warning"><i class="fab fa-instagram fa-3x"></i></button>
         </form>
-        <form action="https://vk.com/egor_s2000/">
-            <i class="fab fa-vk"></i>
+        <form class="social" action="https://www.facebook.com/EgorS2000/">
+            <button class="btn btn-default btn-warning"><i class="fab fa-facebook fa-3x"></i></button>
         </form>
-        <form action="https://twitter.com/EgorS2000/">
-            <i class="fab fa-twitter-square"></i>
+        <form class="social" action="https://vk.com/egor_s2000/">
+            <button class="btn btn-default btn-warning"><i class="fab fa-vk fa-3x"></i></button>
         </form>
-        </section>
+        <form class="social" action="https://twitter.com/EgorS2000/">
+            <button class="btn btn-default btn-warning"><i class="fab fa-twitter-square fa-3x"></i></button>
+        </form>
+        </div>
     </div>
   </body>
 </html>

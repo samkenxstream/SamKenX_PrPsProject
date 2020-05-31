@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import table
+from .models import Rooms
 
-admin.site.register(table)
+admin.site.register(Rooms)

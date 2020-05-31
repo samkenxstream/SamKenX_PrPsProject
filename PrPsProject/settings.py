@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -26,7 +24,6 @@ SECRET_KEY = '4^fz5&&%in2r1o9y5rajni8*1wu#x7@$kx-(ji(&ro!qh5#d7b'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -43,6 +40,11 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.facebook'
+    # 'allauth.socialaccount.providers.telegram',
+    # 'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -77,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PrPsProject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -92,7 +93,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -112,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -128,10 +127,22 @@ USE_TZ = True
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/RentCheck/'
+LOGIN_REDIRECT_URL = '/RentCheck/start_page'
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+ACCOUNT_LOGOUT_REDIRECT_URL = '/RentCheck/start_page'
 
 STATIC_URL = '/static/'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '2710186899268518'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2d33cba372249e1fa89edafc6fc40399'  # app key
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQURIED = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'telegram': {
+#         'TOKEN': '727053143:AAHkIBFlE6JG_eNILM34u-u0aUxx8zycFK0'
+#     }
+# }
